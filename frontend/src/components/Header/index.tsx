@@ -5,7 +5,7 @@ import { UserBadge } from "./UserBadge";
 export function Header() {
   return (
     <Flex
-      alignItems="center"
+      alignItems="start"
       justifyContent="space-between"
       paddingY={6}
     >
