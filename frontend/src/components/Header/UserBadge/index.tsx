@@ -20,7 +20,6 @@ export function UserBadge() {
           <Avatar
             name="Ruan Scherer"
             size="sm"
-            fontFamily="Roboto"
             fontWeight="bold"
           />
           <Heading

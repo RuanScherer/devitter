@@ -1,4 +1,4 @@
-import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputLeftElement, Kbd, Text } from "@chakra-ui/react";
 import { FiHash } from "react-icons/fi";
 import { colors } from "../../../styles/theme";
 
@@ -6,6 +6,8 @@ export function SearchBar() {
   return (
     <Box
       as="form"
+      alignItems="center"
+      gap={3}
       backgroundColor="transparent"
       border="none"
       borderRadius={12}
@@ -18,15 +20,16 @@ export function SearchBar() {
           />
         </InputLeftElement>
         <Input
-          backgroundColor="gray.450"
+          backgroundColor="dark.500"
           border="none"
           borderRadius={12}
           fontFamily="Roboto"
           color="gray.400"
           placeholder="Explorar"
           _placeholder={{
+            fontWeight: "bold",
             color: "gray.400",
-            fontWeight: "bold"
+            opacity: 1
           }}
           _focus={{
             boxShadow: "none",
@@ -35,6 +38,15 @@ export function SearchBar() {
           }}
         />
       </InputGroup>
+
+      <Text
+        fontSize={12}
+        color="gray.400"
+        marginLeft={3}
+        marginTop={1}
+      >
+        <Kbd>Enter</Kbd> para pesquisar
+      </Text>
     </Box>
   )
 }
