@@ -33,7 +33,7 @@ export function SearchBar() {
           }}
           _focus={{
             boxShadow: "none",
-            border: "1px solid",
+            border: "2px solid",
             borderColor: "primary.900"
           }}
         />
