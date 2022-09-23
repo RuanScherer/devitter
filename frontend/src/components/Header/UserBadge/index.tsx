@@ -6,6 +6,7 @@ export function UserBadge() {
   return (
     <Menu
       placement="bottom-end"
+      autoSelect={false}
       closeOnBlur
       closeOnSelect
     >
@@ -41,10 +42,21 @@ export function UserBadge() {
         color="white.700"
         fontFamily="Roboto"
       >
-        <MenuItem>
+        <MenuItem
+          _hover={{
+            backgroundColor: "gray.400"
+          }}
+        >
           Meu perfil
         </MenuItem>
-        <MenuItem>
+        <MenuItem
+          color="red.400"
+          fontWeight="bold"
+          _hover={{
+            backgroundColor: "red.700",
+            color: "white.700"
+          }}
+        >
           Sair
         </MenuItem>
       </MenuList>

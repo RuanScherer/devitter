@@ -1,6 +1,5 @@
-import { Box, Flex, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { FiHash } from "react-icons/fi";
-import { colors } from "../../styles/theme";
+import { Box, Center, Flex } from "@chakra-ui/react";
+import { SearchBar } from "./SearchBar";
 import { UserBadge } from "./UserBadge";
 
 export function Header() {
@@ -10,41 +9,19 @@ export function Header() {
       justifyContent="space-between"
       paddingY={6}
     >
-      <Box width={12} height={12} bgColor="white.700"></Box>
-      
-      <Box
-        as="form"
-        backgroundColor="transparent"
-        border="none"
-        borderRadius={12}
+      <Center
+        bgColor="primary.900"
+        width={12}
+        height={12}
+        borderRadius={8}
       >
-        <InputGroup>
-          <InputLeftElement>
-            <FiHash
-              color={colors.gray[400]}
-              size={20}
-            />
-          </InputLeftElement>
-          <Input
-            backgroundColor="gray.450"
-            border="none"
-            borderRadius={12}
-            fontFamily="Roboto"
-            color="gray.400"
-            placeholder="Explorar"
-            _placeholder={{
-              color: "gray.400",
-              fontWeight: "bold"
-            }}
-            _focus={{
-              boxShadow: "none",
-              border: "1px solid",
-              borderColor: "primary.900"
-            }}
-          />
-        </InputGroup>
+        Logo
+      </Center>
+      
+      <Box display={["none", "none", "block"]}>
+        <SearchBar />
       </Box>
-
+      
       <UserBadge />
     </Flex>
   )
