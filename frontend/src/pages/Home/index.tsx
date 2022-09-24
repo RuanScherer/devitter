@@ -1,3 +1,5 @@
+import { Text } from "@chakra-ui/react";
+
 export function Home() {
-  return <h1>Hello, Devitter!</h1>
+  return <Text color="primary.900">Hello, Devitter!</Text>
 }
