@@ -21,7 +21,7 @@ export const colors = {
 
 const fonts = {
   heading: `'Roboto', sans-serif`,
-  body: `'Roboto Slab', Arial`,
+  body: `'Roboto', Arial`,
 }
 
 export const theme = extendTheme({

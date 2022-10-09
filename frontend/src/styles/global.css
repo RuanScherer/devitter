@@ -1,3 +1,15 @@
 :root, body {
   background-color: #06141D !important;
 }
+
+a:hover {
+  filter: brightness(.5);
+  text-decoration: none !important;
+}
+
+
+.dot::before{
+  content: ".";
+  color:#23D897;
+}
+
