@@ -15,7 +15,7 @@ function App() {
         paddingX={8}
         marginX="auto"
       >
-        <Header />
+        {/* <Header /> */}
         <RouterProvider router={router} />
       </SimpleGrid>
     </ChakraProvider>
