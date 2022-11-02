@@ -1,27 +1,23 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { Home } from "./pages/Home"
-
-const colors = {
-  // define some colors
-}
-
-const theme = extendTheme({
-  colors
-})
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-    // errorElement: <ErrorPage />
-  }
-])
+import { ChakraProvider, SimpleGrid } from "@chakra-ui/react"
+import "@fontsource/roboto"
+import "@fontsource/roboto-slab"
+import { RouterProvider } from "react-router-dom"
+import { Header } from "./components/Header"
+import { router } from "./router"
+import "./styles/global.css"
+import { theme } from "./styles/theme"
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
+      <SimpleGrid
+        maxWidth="1280"
+        paddingX={8}
+        marginX="auto"
+      >
+        <Header />
+        <RouterProvider router={router} />
+      </SimpleGrid>
     </ChakraProvider>
   )
 }
