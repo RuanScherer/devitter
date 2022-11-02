@@ -18,8 +18,8 @@
 
   <body class="bg-gray-900 text-primary-900">
     <div class="container mx-auto">
-      <a href="login.php">Login</a>
-      <a href="register.php">Cadastre-se</a>
+      <a href="view/login.php">Login</a>
+      <a href="view/register.php">Cadastre-se</a>
     </div>
   </body>
 </html>
