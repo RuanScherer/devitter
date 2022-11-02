@@ -18,7 +18,7 @@
 
   <body class="bg-gray-900">
     <main
-      class="h-screen w-100"
+      class="min-h-screen w-100 bg-center"
       style="background-image: url('assets/images/home-cover.jpg')"
     >
       <div class="h-screen w-100 p-8 bg-neutral-900 bg-opacity-80 flex flex-col items-center justify-center text-center">
@@ -32,13 +32,13 @@
         <nav class="flex gap-4 mt-8">
           <a
             href="view/login.php"
-            class="px-6 py-2 bg-emerald-500/20 text-neutral-50/75 text-lg font-medium rounded-lg hover:bg-emerald-500/30 hover:text-neutral-100 transition"
+            class="px-6 py-2 bg-neutral-50/20 text-neutral-50/75 text-lg font-medium rounded-lg hover:bg-neutral-50/30 hover:text-neutral-100 transition"
           >
             Entrar
           </a>
           <a
             href="view/register.php"
-            class="px-6 py-2 bg-emerald-500 text-lg text-neutral-50 font-medium rounded-lg hover:brightness-90 transition"
+            class="px-6 py-2 bg-emerald-500 text-lg text-neutral-50 font-medium rounded-lg hover:bg-emerald-500/80 transition"
           >
             Cadastrar-se
           </a>
