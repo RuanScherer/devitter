@@ -24,7 +24,7 @@ USE `Devitter` ;
 DROP TABLE IF EXISTS `Devitter`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`User` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(254) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
@@ -40,7 +40,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Devitter`.`Tool` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`Tool` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -52,7 +52,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Devitter`.`Post` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`Post` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `commented_post_id` INT NULL,
   `content` VARCHAR(255) NOT NULL,
   `created_at` DATETIME(1) NULL,
@@ -79,7 +79,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Devitter`.`Like` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`Like` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `post_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS `Devitter`.`User_Tool` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`User_Tool` (
   `user_id` INT NOT NULL,
-  `tool_id` INT NOT NULL,
+  `tool_id` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`user_id`, `tool_id`),
   INDEX `fk_User_has_Tool_Tool1_idx` (`tool_id` ASC) VISIBLE,
   INDEX `fk_User_has_Tool_User_idx` (`user_id` ASC) VISIBLE,
