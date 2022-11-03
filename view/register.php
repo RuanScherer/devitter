@@ -1,3 +1,37 @@
+<?php
+
+include_once __DIR__ . "/../use-cases/register-user/register-user-controller.php";
+include_once __DIR__ . "/../entities/User.php";
+
+$form_error_message = "";
+$user = new User();
+
+if (!empty($_POST)) {
+  $isDataValid = true;
+
+  $user->name = $_POST["name"];
+  $user->username = $_POST["username"];
+  $user->email = $_POST["email"];
+  $user->password = $_POST["password"];
+  
+  if ($_POST["password"] != $_POST["confirm_password"]) {
+    $isDataValid = false;
+    $form_error_message = "As senhas não coincidem.";
+  }
+
+  if ($isDataValid) {
+    $response = RegisterUserController::handle($user);
+    if ($response->status == "success") {
+      header("Location: " . "login.php");
+      exit();
+    } else {
+      $form_error_message = $response->message;
+    }
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -15,6 +49,7 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="scripts/tailwind-config.js"></script>
+    <script src="https://kit.fontawesome.com/0fc61897ab.js" crossorigin="anonymous"></script>
   </head>
 
   <body class="bg-gray-900 text-emerald-500">
@@ -44,66 +79,83 @@
               </p>
             </div>
 
-            <form class="grid grid-cols-2 gap-4">
+            <form class="grid grid-cols-2 gap-4" method="POST">
               <label class="relative block">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img class="h-5 w-5 fill-slate-300" src="../assets/images/email.svg" alt="Email">
+                  <i class="text-slate-300 fa-regular fa-user"></i>
                 </span>
                 <input
                   type="text"
                   name="name"
                   placeholder="Nome"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  value="<?= $user->name ?>"
+                  minlength="2"
+                  required
                 />
               </label>
 
               <label class="relative block">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img class="h-5 w-5 fill-slate-300" src="../assets/images/email.svg" alt="Email">
+                  <i class="text-slate-300 fa-regular fa-at"></i>
                 </span>
                 <input
                   type="text"
                   name="username"
                   placeholder="Username"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  value="<?= $user->username ?>"
+                  minlength="6"
+                  required
                 />
               </label>
 
               <label class="relative block grid col-span-2">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img class="h-5 w-5 fill-slate-300" src="../assets/images/email.svg" alt="Email">
+                  <i class="text-slate-300 fa-regular fa-envelope"></i>
                 </span>
                 <input
                   type="email"
                   name="email"
                   placeholder="Email"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  value="<?= $user->email ?>"
+                  required
                 />
               </label>
 
               <label class="relative block col-span-2">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img class="h-5 w-5 fill-slate-300" src="../assets/images/padlock.svg" alt="Email">
+                  <i class="text-slate-300 fa-solid fa-asterisk"></i>
                 </span>
                 <input
                   type="password"
                   name="password"
                   placeholder="Senha"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  value="<?= $user->password ?>"
+                  minlength="8"
+                  required
                 />
               </label>
 
               <label class="relative block col-span-2">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <img class="h-5 w-5 fill-slate-300" src="../assets/images/padlock.svg" alt="Email">
+                  <i class="text-slate-300 fa-solid fa-asterisk"></i>
                 </span>
                 <input
                   type="password"
                   name="confirm_password"
                   placeholder="Confirmar senha"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  minlength="8"
+                  required
                 />
               </label>
+
+              <?= '
+                <span class="text-red-500 col-span-2">' . $form_error_message . '</span>
+              ' ?>
               
               <button
                 type="submit"
