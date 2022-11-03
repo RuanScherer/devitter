@@ -50,11 +50,12 @@
                   <img class="h-5 w-5 fill-slate-300" src="../assets/images/email.svg" alt="Email">
                 </span>
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   placeholder="Email"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
-                />
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none invalid:border-pink-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
+                  required
+                  />
               </label>
 
               <label class="relative block">
@@ -66,7 +67,8 @@
                   name="password"
                   placeholder="Senha"
                   class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
-                />
+                  required
+                  />
               </label>
 
               <a class="w-fit text-sm text-neutral-300 font-medium hover:text-emerald-300 transition" href="">
