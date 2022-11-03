@@ -35,7 +35,10 @@
               </p>
               <p class="text-base text-neutral-300 mt-4">
                 Não tem cadastro?
-                <a class="text-base font-medium hover:text-emerald-300 transition" href="view/register.php">
+                <a
+                  class="text-base font-medium hover:text-emerald-300 transition"
+                  href="register.php"
+                >
                   Cadastrar-se
                 </a>
               </p>
@@ -43,18 +46,29 @@
 
             <form class="flex flex-col justify-between gap-4 max-w-sm">
               <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                   <img class="h-5 w-5 fill-slate-300" src="../assets/images/email.svg" alt="Email">
                 </span>
-                <input type="text" placeholder="Email" class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-2 text-slate-200 transition" />
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                />
               </label>
 
               <label class="relative block">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                   <img class="h-5 w-5 fill-slate-300" src="../assets/images/padlock.svg" alt="Padlock">
                 </span>
-                <input type="password" placeholder="Senha" class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-2 text-slate-200 transition" />
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Senha"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                />
               </label>
+
               <a class="w-fit text-sm text-neutral-300 font-medium hover:text-emerald-300 transition" href="">
                 Esqueceu a senha?
               </a>
