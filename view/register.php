@@ -3,7 +3,7 @@
 include_once __DIR__ . "/../use-cases/register-user/register-user-controller.php";
 include_once __DIR__ . "/../entities/User.php";
 
-$form_error_message = "";
+$form_error_message;
 $user = new User();
 
 if (!empty($_POST)) {
@@ -88,7 +88,7 @@ if (!empty($_POST)) {
                   type="text"
                   name="name"
                   placeholder="Nome"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
                   value="<?= $user->name ?>"
                   minlength="2"
                   required
@@ -103,7 +103,7 @@ if (!empty($_POST)) {
                   type="text"
                   name="username"
                   placeholder="Username"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
                   value="<?= $user->username ?>"
                   minlength="6"
                   required
@@ -118,7 +118,7 @@ if (!empty($_POST)) {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
                   value="<?= $user->email ?>"
                   required
                 />
@@ -132,7 +132,7 @@ if (!empty($_POST)) {
                   type="password"
                   name="password"
                   placeholder="Senha"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
                   value="<?= $user->password ?>"
                   minlength="8"
                   required
@@ -147,15 +147,17 @@ if (!empty($_POST)) {
                   type="password"
                   name="confirm_password"
                   placeholder="Confirmar senha"
-                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition"
+                  class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-10 px-4 text-slate-200 transition invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500"
                   minlength="8"
                   required
                 />
               </label>
 
-              <?= '
-                <span class="text-red-500 col-span-2">' . $form_error_message . '</span>
-              ' ?>
+              <?php
+                if (isset($form_error_message)) {
+                  echo '<span class="text-red-500 col-span-2">' . $form_error_message . '</span>';
+                }
+              ?>
               
               <button
                 type="submit"
