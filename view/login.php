@@ -74,7 +74,9 @@
               <a class="w-fit text-sm text-neutral-300 font-medium hover:text-emerald-300 transition" href="">
                 Esqueceu a senha?
               </a>
-              <button class="px-6 py-2 mt-4 rounded-lg bg-emerald-500 text-lg text-gray-800 font-medium hover:bg-emerald-500/80 transition" type="submit">
+              <button 
+                class="px-6 py-2 mt-4 rounded-lg bg-emerald-500 text-lg text-gray-800 font-medium hover:bg-emerald-500/80 transition" 
+                type="submit">
                 Entrar
               </button>
             </form>
