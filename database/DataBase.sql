@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `Devitter`.`User` ;
 CREATE TABLE IF NOT EXISTS `Devitter`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(254) NOT NULL,
-  `username` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(254) NOT NULL UNIQUE,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
   `biography` VARCHAR(160) NULL,
   `password` VARCHAR(16) NOT NULL,
   PRIMARY KEY (`id`))
