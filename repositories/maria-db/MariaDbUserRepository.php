@@ -8,7 +8,7 @@ class MariaDbUserRepository implements IUserRepository {
   function create($user) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
-      "INSERT INTO user (name, email, username, biography, password) VALUES (?, ?, ?, ?, ?);"
+      "INSERT INTO User (name, email, username, biography, password) VALUES (?, ?, ?, ?, ?);"
     );
     $statement->bind_param(
       "sssss",
@@ -24,7 +24,7 @@ class MariaDbUserRepository implements IUserRepository {
   function findOneByEmailOrUsername($user) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
-      "SELECT * FROM user WHERE email = ? or username = ? limit 1;"
+      "SELECT * FROM User WHERE email = ? or username = ? LIMIT 1;"
     );
     $statement->bind_param(
       "ss",

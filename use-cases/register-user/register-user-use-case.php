@@ -4,9 +4,9 @@ include_once __DIR__ . "/../../shared/UseCaseResponse.php";
 include_once __DIR__ . "/../../repositories/IUserRepository.php";
 
 class RegisterUserUseCase {
-  private IUserRepository $user_repository;
+  private $user_repository;
 
-  function __construct(IUserRepository $user_repository) {
+  function __construct($user_repository) {
     $this->user_repository = $user_repository;
   }
 
