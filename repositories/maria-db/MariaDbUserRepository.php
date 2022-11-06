@@ -36,6 +36,23 @@ class MariaDbUserRepository implements IUserRepository {
     $data = $result->fetch_assoc();
     return User::fromArray($data);
   }
+
+  function findOneByEmail($userEmail) {
+    $connection = MariaDbConnection::getConnection();
+    $statement = $connection->prepare(
+      "SELECT * FROM user WHERE email = ? limit 1;"
+    );
+    $statement->bind_param(
+      "s",
+      $userEmail
+    );
+    $statement->execute();
+    $result = $statement->get_result();
+    $data = $result->fetch_assoc();
+    return User::fromArray($data);
+  }
+
+  
 }
 
 ?>

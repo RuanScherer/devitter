@@ -1,3 +1,27 @@
+<?php
+
+include_once __DIR__ . "/../use-cases/authenticate-user/authenticate-user-controller.php";
+include_once __DIR__ . "/../entities/User.php";
+
+$form_error_message;
+$user = new User();
+
+if (!empty($_POST)) {
+  $userEmail = $_POST["email"];
+  $userPassword = $_POST["password"];
+  
+  $response = AuthenticateUserController::handle($userEmail, $userPassword);
+  
+  if ($response->status == "success") {
+    header("Location: " . "feed.php");
+    exit();
+  } else {
+    $form_error_message = $response->message;
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -45,7 +69,7 @@
               </p>
             </div>
 
-            <form class="flex flex-col justify-between gap-4 max-w-sm">
+            <form class="flex flex-col justify-between gap-4 max-w-sm" method="POST">
               <label class="relative block">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                   <i class="text-slate-300 fa-regular fa-envelope"></i>
@@ -75,6 +99,13 @@
               <a class="w-fit text-sm text-neutral-300 font-medium hover:text-emerald-300 transition" href="">
                 Esqueceu a senha?
               </a>
+
+              <?php
+                if (isset($form_error_message)) {
+                  echo '<span class="text-red-500 col-span-2">' . $form_error_message . '</span>';
+                }
+              ?>
+
               <button 
                 class="px-6 py-2 mt-4 rounded-lg bg-emerald-500 text-lg text-gray-800 font-medium hover:bg-emerald-500/80 transition" 
                 type="submit">
