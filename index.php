@@ -1,3 +1,9 @@
+<?php
+
+  include_once __DIR__ . "/../shared/middlewares/NotAuthenticated.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>

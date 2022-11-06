@@ -1,3 +1,9 @@
+<?php
+
+  include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -55,7 +61,7 @@
             <a href="profile.php" class="block px-4 py-2 text-neutral-100 hover:bg-emerald-500/10">
               Meu Perfil
             </a>
-            <a href="#" class="block px-4 py-2 text-red-500 hover:bg-emerald-500/10">
+            <a href="../shared/middlewares/Logout.php" class="block px-4 py-2 text-red-500 hover:bg-emerald-500/10">
               Sair
             </a>
           </nav>

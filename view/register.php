@@ -2,6 +2,7 @@
 
 include_once __DIR__ . "/../use-cases/register-user/register-user-controller.php";
 include_once __DIR__ . "/../entities/User.php";
+include_once __DIR__ . "/../shared/middlewares/NotAuthenticated.php";
 
 $form_error_message;
 $user = new User();
