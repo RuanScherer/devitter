@@ -5,7 +5,7 @@ include_once __DIR__ . "/MariaDbConnection.php";
 include_once __DIR__ . "/../../entities/User.php";
 
 class MariaDbUserRepository implements IUserRepository {
-  function create(User $user): void {
+  function create($user) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
       "INSERT INTO user (name, email, username, biography, password) VALUES (?, ?, ?, ?, ?);"
@@ -21,7 +21,7 @@ class MariaDbUserRepository implements IUserRepository {
     $statement->execute();
   }
 
-  function findOneByEmailOrUsername(User $user): ?User {
+  function findOneByEmailOrUsername($user) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
       "SELECT * FROM user WHERE email = ? or username = ? limit 1;"

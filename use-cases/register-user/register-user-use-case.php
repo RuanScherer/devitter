@@ -10,7 +10,7 @@ class RegisterUserUseCase {
     $this->user_repository = $user_repository;
   }
 
-  function execute($user): ?UseCaseResponse {
+  function execute($user) {
     if (!isset($this->user_repository)) {
       return null;
     }

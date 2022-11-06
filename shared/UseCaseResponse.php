@@ -1,10 +1,10 @@
 <?php
 
 class UseCaseResponse {
-  private string $status;
-  private string $message;
+  private $status;
+  private $message;
 
-  private function __construct(string $status, $message = "") {
+  private function __construct($status, $message = "") {
     $this->status = $status;
     $this->message = $message;
   }
