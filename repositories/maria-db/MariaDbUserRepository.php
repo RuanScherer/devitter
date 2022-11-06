@@ -40,7 +40,7 @@ class MariaDbUserRepository implements IUserRepository {
   function findOneByEmail($userEmail) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
-      "SELECT * FROM user WHERE email = ? limit 1;"
+      "SELECT * FROM User WHERE email = ? limit 1;"
     );
     $statement->bind_param(
       "s",
