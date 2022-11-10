@@ -1,6 +1,10 @@
 <?php
 
-  include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
+include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
+include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
+
+$authenticatedUser = unserialize($_SESSION['user']);
+$authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticatedUser->name);
 
 ?>
 
@@ -49,10 +53,11 @@
 
         <div class="relative">
           <button
-            class="w-10 h-10 rounded-full border-2 border-emerald-400 focus:outline-none bg-cover bg-center"
-            style="background-image: url('https://avatars.githubusercontent.com/u/50061559?v=4');"
+            class="flex flex-col items-center justify-center w-10 h-10 rounded-full focus:outline-none bg-neutral-300 text-center font-bold text-neutral-800"
             onclick="toggleUserPopup()"
-          ></button>
+          >
+            <?= $authenticatedUserNameAbbreviation ?>
+          </button>
           
           <nav
             id="user-popup"
@@ -73,16 +78,15 @@
           <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
 
           <div class="p-4">
-            <div
-              class="w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-cover bg-center"
-              style="background-image: url('https://avatars.githubusercontent.com/u/50061559?v=4');"
-            ></div>
+            <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
+              <?= $authenticatedUserNameAbbreviation ?>
+            </div>
 
             <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
-              Ruan Scherer
+              <?= $authenticatedUser->name ?>
             </h2>
             <h3 class="text-md text-center text-neutral-300 leading-none mb-8">
-              @ruan_scherer
+              @<?= $authenticatedUser->username ?>
             </h3>
 
             <a

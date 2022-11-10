@@ -1,4 +1,5 @@
 <?php 
+    require __DIR__ . "/../../entities/User.php";
 
     if(!isset($_SESSION)) {
         session_start();   

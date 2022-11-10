@@ -30,7 +30,7 @@ class AuthenticateUserUseCase {
         session_start();
     }
 
-    $_SESSION['user'] = $existentUser;
+    $_SESSION['user'] = serialize($existentUser);
     return UseCaseResponse::success();
   }
 }
