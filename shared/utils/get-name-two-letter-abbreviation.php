@@ -1,12 +1,13 @@
 <?php
 
-function getNameTwoLetterAbbreviation($fullName = "") {
-  $explodedName = explode(" ", $fullName);
-  $abbreviation = substr($explodedName[0], 0, 1);
-  $explodedNameCount = count($explodedName);
-  if ($explodedNameCount > 1) {
-    $abbreviation .= substr($explodedName[$explodedNameCount - 1], 0, 1);
+function getNameTwoLetterAbbreviation($full_name = "") {
+  $exploded_name = explode(" ", $full_name);
+  $abbreviation = substr($exploded_name[0], 0, 1);
+  $exploded_name_count = count($exploded_name);
+  if ($exploded_name_count > 1) {
+    $abbreviation .= substr($exploded_name[$exploded_name_count - 1], 0, 1);
   }
+  return $abbreviation;
 }
 
 ?>

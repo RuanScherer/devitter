@@ -23,7 +23,7 @@ class MariaDbConnection {
     } catch (Exception $exception) {
       var_dump($exception);
     }
-  } 
+  }
 }
 
 ?>
