@@ -15,7 +15,7 @@ if (!empty($_POST)) {
   $post->user = $authenticated_user;
 
   $response = CreatePostController::handle($post);
-  if (isset($response) && $response->status == "error") {
+  if (isset($response) && !$response->isSuccess()) {
     $post_creation_error_message = $response->message;
   }
 }

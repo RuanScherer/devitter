@@ -1,13 +1,29 @@
 <?php
 
 include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
+include_once __DIR__ . "/../use-cases/get-user-by-id/get-user-by-id-controller.php";
 include_once __DIR__ . "/../use-cases/get-user-posts/get-user-posts-controller.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
+
+if (!isset($_GET) || !isset($_GET["user"])) {
+  header("Location: feed.php");
+}
 
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
 
-$response = GetUserPostsController::handle($authenticated_user->id);
+$response = GetUserByIdController::handle(intval($_GET["user"]));
+
+$user = null;
+if ($response->isSuccess()) {
+  $user = $response->data;
+} else {
+  header("Location: feed.php");
+}
+
+$user_name_abbreviation = getNameTwoLetterAbbreviation($user->name);
+
+$response = GetUserPostsController::handle($user->id);
 $user_posts = $response->data;
 
 ?>
@@ -24,7 +40,7 @@ $user_posts = $response->data;
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles/global.css" />
 
-    <title>Devitter | Meu Perfil</title>
+    <title>Devitter | <?= $user->name ?></title>
     <link rel="icon" type="imagem/svg" href="../assets/images/bird.svg" />
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -85,31 +101,31 @@ $user_posts = $response->data;
 
           <div class="p-4">
             <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
-              <?= $authenticated_user_name_abbreviation ?>
+              <?= $user_name_abbreviation ?>
             </div>
 
             <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
-              <?= $authenticated_user->name ?>
+              <?= $user->name ?>
             </h2>
             <h3 class="text-md text-center text-neutral-300 leading-none">
-              @<?= $authenticated_user->username ?>
+              @<?= $user->username ?>
             </h3>
 
             <?php
-              echo "<p class='text-neutral-200 text-center mt-4'>" . $authenticated_user->biography .  "</p>";
+              echo "<p class='text-neutral-200 text-center mt-4'>" . $user->biography .  "</p>";
             ?>
 
             <a
-              href="edit-profile.php"
+              href="#"
               class="block px-6 py-2 mt-8 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
             >
-              Editar perfil
+              Seguir
             </a>
           </div>
         </aside>
 
         <main class="col-span-12 lg:col-span-8 xl:col-span-9">
-          <h2 class="text-2xl text-neutral-50 font-medium">Meus posts</h2>
+          <h2 class="text-2xl text-neutral-50 font-medium">Posts</h2>
           <section class="flex flex-col items-stretch mt-4 bg-gray-800/75 rounded-lg shadow">
             <?php foreach($user_posts as $key=>$post): ?>
               <article class="px-4 py-6 border-b border-slate-700 text-neutral-200 last:border-b-0">
@@ -145,13 +161,13 @@ $user_posts = $response->data;
                 </div>
               </article>
             <?php endforeach; ?>
-
-            <?php if(count($user_posts) < 1): ?>
-              <div class="p-8 bg-gray-800/75 rounded-lg shadow">
-                <p class="text-lg text-neutral-200">Parece que você ainda não publicou nada.</p>
-              </div>
-            <?php endif; ?>
           </section>
+
+          <?php if(count($user_posts) < 1): ?>
+            <div class="p-8 bg-gray-800/75 rounded-lg shadow">
+              <p class="text-lg text-neutral-200">Não há posts aqui ainda.</p>
+            </div>
+          <?php endif; ?>
         </main>
       </div>
     </div>

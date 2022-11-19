@@ -22,7 +22,7 @@ if (!empty($_POST)) {
 
   if ($isDataValid) {
     $response = RegisterUserController::handle($user);
-    if ($response->status == "success") {
+    if ($response->isSuccess()) {
       header("Location: " . "login.php");
       exit();
     } else {

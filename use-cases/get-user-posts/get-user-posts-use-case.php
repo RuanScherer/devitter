@@ -1,7 +1,6 @@
 <?php
 
 include_once __DIR__ . "/../../shared/UseCaseResponse.php";
-include_once __DIR__ . "/../../repositories/IUserRepository.php";
 
 class GetUserPostsUseCase {
   private $post_repository;

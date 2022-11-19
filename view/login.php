@@ -13,7 +13,7 @@ if (!empty($_POST)) {
   
   $response = AuthenticateUserController::handle($userEmail, $userPassword);
   
-  if ($response->status == "success") {
+  if ($response->isSuccess()) {
     header("Location: " . "feed.php");
    
   } else {

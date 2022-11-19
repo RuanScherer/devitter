@@ -22,6 +22,10 @@ class UseCaseResponse {
   function __get($name) {
     return $this->$name;
   }
+
+  function isSuccess() {
+    return $this->status == "success";
+  }
 }
 
 ?>
