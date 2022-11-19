@@ -5,12 +5,12 @@ include_once __DIR__ . "/../use-cases/get-user-by-id/get-user-by-id-controller.p
 include_once __DIR__ . "/../use-cases/get-user-posts/get-user-posts-controller.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 
-if (!isset($_GET) || !isset($_GET["user"])) {
-  header("Location: feed.php");
-}
-
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
+
+if (!isset($_GET) || !isset($_GET["user"]) || $_GET["user"] == $authenticated_user->id) {
+  header("Location: feed.php");
+}
 
 $response = GetUserByIdController::handle(intval($_GET["user"]));
 
@@ -96,7 +96,7 @@ $user_posts = $response->data;
       </header>
 
       <div class="grid grid-cols-12 gap-8 mt-8">
-        <aside class="hidden h-fit lg:block lg:col-span-4 xl:col-span-3 bg-gray-800/75 rounded-lg shadow">
+        <aside class="col-span-12 h-fit lg:block lg:col-span-4 xl:col-span-3 bg-gray-800/75 rounded-lg shadow">
           <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
 
           <div class="p-4">
