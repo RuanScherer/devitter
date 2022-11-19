@@ -1,10 +1,24 @@
 <?php
 
 include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
+include_once __DIR__ . "/../use-cases/create-post/create-post-controller.php";
+include_once __DIR__ . "/../entities/Post.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 
-$authenticatedUser = unserialize($_SESSION['user']);
-$authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticatedUser->name);
+$authenticated_user = unserialize($_SESSION['user']);
+$authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
+
+$post_creation_error_message = "";
+if (!empty($_POST)) {
+  $post = new Post();
+  $post->content = $_POST["post_content"];
+  $post->user = $authenticated_user;
+
+  $response = CreatePostController::handle($post);
+  if (isset($response) && $response->status == "error") {
+    $post_creation_error_message = $response->message;
+  }
+}
 
 ?>
 
@@ -31,11 +45,13 @@ $authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticated
   <body class="bg-gray-900">
     <div class="container mx-auto p-8">
       <header class="flex items-center justify-between gap-3">
-        <img
-          class="w-9 hidden sm:block"
-          src="../assets/images/bird.svg"
-          alt="Bird"
-        />
+        <a href="feed.php">
+          <img
+            class="w-9 hidden sm:block"
+            src="../assets/images/bird.svg"
+            alt="Bird"
+          />
+        </a>
 
         <form method="POST">
           <label class="relative block grid col-span-2">
@@ -56,7 +72,7 @@ $authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticated
             class="flex flex-col items-center justify-center w-10 h-10 rounded-full focus:outline-none bg-neutral-300 text-center font-bold text-neutral-800"
             onclick="toggleUserPopup()"
           >
-            <?= $authenticatedUserNameAbbreviation ?>
+            <?= $authenticated_user_name_abbreviation ?>
           </button>
           
           <nav
@@ -79,18 +95,18 @@ $authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticated
 
           <div class="p-4">
             <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
-              <?= $authenticatedUserNameAbbreviation ?>
+              <?= $authenticated_user_name_abbreviation ?>
             </div>
 
             <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
-              <?= $authenticatedUser->name ?>
+              <?= $authenticated_user->name ?>
             </h2>
             <h3 class="text-md text-center text-neutral-300 leading-none mb-8">
-              @<?= $authenticatedUser->username ?>
+              @<?= $authenticated_user->username ?>
             </h3>
 
             <a
-              href="view/register.php"
+              href="profile.php"
               class="block px-6 py-2 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
             >
               Meu perfil
@@ -108,7 +124,16 @@ $authenticatedUserNameAbbreviation = getNameTwoLetterAbbreviation($authenticated
               placeholder="O que você está pensando?"
               rows="3"
               class="rounded-lg m-3 p-6 block bg-gray-700/30 text-neutral-100 hover:bg-gray-700/50 focus:bg-gray-700/50 focus:outline-none caret-emerald-500 resize-none transition"
+              maxlength="255"
+              required
             ></textarea>
+
+            <?php
+              if (isset($post_creation_error_message)) {
+                echo '<span class="text-red-500 mx-3">' . $post_creation_error_message . '</span>';
+              }
+            ?>
+
             <button
               type="submit"
               class="mr-3 mb-3 px-6 py-2 self-end bg-emerald-500 text-md text-gray-900 font-medium rounded-lg hover:bg-emerald-500/80 transition"
