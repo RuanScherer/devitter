@@ -3,6 +3,9 @@
 include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
 include_once __DIR__ . "/../use-cases/get-user-by-id/get-user-by-id-controller.php";
 include_once __DIR__ . "/../use-cases/get-user-posts/get-user-posts-controller.php";
+include_once __DIR__ . "/../use-cases/check-is-following-user/check-is-following-user-controller.php";
+include_once __DIR__ . "/../use-cases/follow-user/follow-user-controller.php";
+include_once __DIR__ . "/../use-cases/stop-following-user/stop-following-user-controller.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 
 $authenticated_user = unserialize($_SESSION['user']);
@@ -25,6 +28,20 @@ $user_name_abbreviation = getNameTwoLetterAbbreviation($user->name);
 
 $response = GetUserPostsController::handle($user->id);
 $user_posts = $response->data;
+
+$response = CheckIsFollowingUserController::handle($authenticated_user->id, intval($_GET["user"]));
+$isFollowingUser = $response->data;
+
+if (!empty($_POST) && $_POST["TOGGLE_FOLLOW"] != null) {
+  echo "caiu";
+  if ($isFollowingUser) {
+    StopFollowingUserController::handle($authenticated_user->id, intval($_GET["user"]));
+    $isFollowingUser = false;
+  } else {
+    FollowUserController::handle($authenticated_user->id, intval($_GET["user"]));
+    $isFollowingUser = true;
+  }
+}
 
 ?>
 
@@ -111,16 +128,17 @@ $user_posts = $response->data;
               @<?= $user->username ?>
             </h3>
 
-            <?php
-              echo "<p class='text-neutral-200 text-center mt-4'>" . $user->biography .  "</p>";
-            ?>
+            <?= "<p class='text-neutral-200 text-center mt-4'>" . $user->biography .  "</p>" ?>
 
-            <a
-              href="#"
-              class="block px-6 py-2 mt-8 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
-            >
-              Seguir
-            </a>
+            <form method="POST" class="w-full mb-0">
+              <input type="hidden" name="TOGGLE_FOLLOW" value="true">
+              <button
+                type="submit"
+                class="block w-full px-6 py-2 mt-8 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
+              >
+                <?= $isFollowingUser ? "Parar de seguir" : "Seguir" ?>
+              </button>
+            </form>
           </div>
         </aside>
 

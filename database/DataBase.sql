@@ -26,7 +26,7 @@ USE `Devitter` ;
 DROP TABLE IF EXISTS `Devitter`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`User` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(254) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Devitter`.`Tool` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`Tool` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -54,7 +54,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `Devitter`.`Post` ;
 
 CREATE TABLE IF NOT EXISTS `Devitter`.`Post` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `commented_post_id` INT NULL DEFAULT NULL,
   `content` VARCHAR(255) NOT NULL,
   `created_at` DATETIME(1) NULL DEFAULT NULL,
