@@ -102,14 +102,14 @@ CREATE TABLE IF NOT EXISTS `Devitter`.`User_Categories` (
   `user_id` INT NOT NULL,
   `categories_id` INT NOT NULL,
   PRIMARY KEY (`user_id`, `categories_id`),
-  INDEX `fk_User_has_Tool_Tool1_idx` (`categories_id` ASC) VISIBLE,
-  INDEX `fk_User_has_Tool_User_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_User_has_Tool_User`
+  INDEX `fk_User_has_Categories_Categories1_idx` (`categories_id` ASC) VISIBLE,
+  INDEX `fk_User_has_Categories_User_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_User_has_Categories_User`
     FOREIGN KEY (`user_id`)
     REFERENCES `Devitter`.`User` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_User_has_Tool_Tool1`
+  CONSTRAINT `fk_User_has_Categories_Categories1`
     FOREIGN KEY (`categories_id`)
     REFERENCES `Devitter`.`Categories` (`id`)
     ON DELETE NO ACTION
