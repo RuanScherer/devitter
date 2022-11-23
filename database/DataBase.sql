@@ -32,18 +32,7 @@ CREATE TABLE IF NOT EXISTS `Devitter`.`User` (
   `username` VARCHAR(45) NOT NULL,
   `biography` VARCHAR(160) NULL DEFAULT NULL,
   `password` VARCHAR(16) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Devitter`.`Categories`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Devitter`.`Categories` ;
-
-CREATE TABLE IF NOT EXISTS `Devitter`.`Categories` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `dev_type` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -88,30 +77,6 @@ CREATE TABLE IF NOT EXISTS `Devitter`.`Follow` (
   CONSTRAINT `fk_Followed_User`
     FOREIGN KEY (`followed_id`)
     REFERENCES `Devitter`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `Devitter`.`User_Categories`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `Devitter`.`User_Categories` ;
-
-CREATE TABLE IF NOT EXISTS `Devitter`.`User_Categories` (
-  `user_id` INT NOT NULL,
-  `categories_id` INT NOT NULL,
-  PRIMARY KEY (`user_id`, `categories_id`),
-  INDEX `fk_User_has_Categories_Categories1_idx` (`categories_id` ASC) VISIBLE,
-  INDEX `fk_User_has_Categories_User_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_User_has_Categories_User`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `Devitter`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_User_has_Categories_Categories1`
-    FOREIGN KEY (`categories_id`)
-    REFERENCES `Devitter`.`Categories` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
