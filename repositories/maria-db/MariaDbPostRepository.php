@@ -39,10 +39,10 @@ class MariaDbPostRepository implements IPostRepository {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
       "SELECT P.*, U.id AS user_id, U.name AS user_name
-      FROM post P
-      INNER JOIN user U
+      FROM Post P
+      INNER JOIN User U
       ON U.id = P.user_id
-      LEFT JOIN follow F
+      LEFT JOIN Follow F
       ON P.user_id = F.followed_id
       WHERE F.follower_id = ?
       OR P.user_id = ?
