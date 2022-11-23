@@ -22,6 +22,7 @@ if (!empty($_POST)) {
   if (isset($response) && !$response->isSuccess()) {
     $post_creation_error_message = $response->message;
   }
+  header("Location: feed.php");
 }
 
 $responsePosts = GetFollowedUsersPostsController::handle($authenticated_user->id);
@@ -59,20 +60,6 @@ $posts = $responsePosts->data;
             alt="Bird"
           />
         </a>
-
-        <form method="POST">
-          <label class="relative block grid col-span-2">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <i class="fa-solid fa-hashtag text-emerald-500"></i>
-            </span>
-            <input
-              type="text"
-              name="search"
-              placeholder="Explore"
-              class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-9 px-4 text-slate-200 transition"
-            />
-          </label>
-        </form>
 
         <div class="relative">
           <button
@@ -207,15 +194,7 @@ $posts = $responsePosts->data;
                   <?= $post->content ?>
                 </p>
 
-                <div class="flex items-center justify-between mt-3">
-                  <a
-                    href="#"
-                    class="block w-fit px-4 py-1.5 bg-neutral-500/10 text-neutral-50/75 text-sm font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
-                  >
-                    <i class="fa-regular fa-comment mr-1"></i>
-                    Comentar
-                  </a>
-
+                <div class="flex items-center justify-end mt-2">
                   <span class="text-sm text-neutral-300">
                     <?php
                       $created_at = strtotime($post->created_at);
