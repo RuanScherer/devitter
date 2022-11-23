@@ -50,20 +50,6 @@ if (!empty($_POST)) {
           />
         </a>
 
-        <form method="POST">
-          <label class="relative block grid col-span-2">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <i class="fa-solid fa-hashtag text-emerald-500"></i>
-            </span>
-            <input
-              type="text"
-              name="search"
-              placeholder="Explore"
-              class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-9 px-4 text-slate-200 transition"
-            />
-          </label>
-        </form>
-
         <div class="relative">
           <button
             class="flex flex-col items-center justify-center w-10 h-10 rounded-full focus:outline-none bg-neutral-300 text-center font-bold text-neutral-800"

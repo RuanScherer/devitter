@@ -11,8 +11,12 @@ include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
 
-if (!isset($_GET) || !isset($_GET["user"]) || $_GET["user"] == $authenticated_user->id) {
+if (!isset($_GET) || !isset($_GET["user"])) {
   header("Location: feed.php");
+}
+
+if ($_GET["user"] == $authenticated_user->id) {
+  header("Location: profile.php");
 }
 
 $response = GetUserByIdController::handle(intval($_GET["user"]));
@@ -75,20 +79,6 @@ if (!empty($_POST) && $_POST["TOGGLE_FOLLOW"] != null) {
             alt="Bird"
           />
         </a>
-
-        <form method="POST">
-          <label class="relative block grid col-span-2">
-            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
-              <i class="fa-solid fa-hashtag text-emerald-500"></i>
-            </span>
-            <input
-              type="text"
-              name="search"
-              placeholder="Explore"
-              class="rounded-md w-full border-solid bg-gray-800/75 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 py-2 pl-9 px-4 text-slate-200 transition"
-            />
-          </label>
-        </form>
 
         <div class="relative">
           <button
