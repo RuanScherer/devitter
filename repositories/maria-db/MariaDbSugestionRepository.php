@@ -9,11 +9,12 @@ class MariaDbSugestionRepository implements ISugestionRepository {
   function findAllByUser($user_id, $user_type) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
-      "SELECT U.* FROM User u WHERE u.id <> ? AND u.dev_type like '%".$user_type."%' LIMIT 3;"
+      "SELECT U.* FROM User u WHERE u.id <> ? AND u.dev_type IS NOT NULL AND u.dev_type = ? LIMIT 3;"
     );
     $statement->bind_param(
-      "i",
-      $user_id
+      "is",
+      $user_id,
+      $user_type
     );
     $statement->execute();
     $result = $statement->get_result();
