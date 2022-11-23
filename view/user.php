@@ -163,7 +163,7 @@ if (!empty($_POST) && $_POST["TOGGLE_FOLLOW"] != null) {
 
                 <div class="flex items-center justify-between mt-3">
                   <a
-                    href="post.php?post=<?= $post->id ?>"
+                    href="#"
                     class="block w-fit px-4 py-1.5 bg-neutral-500/10 text-neutral-50/75 text-sm font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
                   >
                     <i class="fa-regular fa-comment mr-1"></i>
