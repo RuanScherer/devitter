@@ -2,11 +2,15 @@
 
 include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
 include_once __DIR__ . "/../use-cases/create-post/create-post-controller.php";
+include_once __DIR__ . "/../use-cases/get-followed-users-posts/get-followed-users-posts-controller.php";
 include_once __DIR__ . "/../entities/Post.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
+
+$responsePost = GetFollowedUsersPostsController::handle($authenticated_user->id);
+$user_posts = $responsePost->data;
 
 $post_creation_error_message = "";
 if (!empty($_POST)) {
@@ -143,7 +147,41 @@ if (!empty($_POST)) {
           </form>
 
           <section class="flex flex-col items-stretch mt-4 bg-gray-800/75 rounded-lg shadow">
-            <article class="px-4 py-6 border-b border-slate-700 text-neutral-200 last:border-b-0">
+          <?php foreach($user_posts as $key=>$post): ?>
+              <article class="px-4 py-6 border-b border-slate-700 text-neutral-200 last:border-b-0">
+                <div class="flex items-center gap-3">
+                  <div class="flex flex-col items-center justify-center w-8 h-8 rounded-full bg-neutral-300 text-center font-bold text-neutral-800">
+                    <?= getNameTwoLetterAbbreviation($post->user->name) ?>
+                  </div>
+
+                  <h4 class="text-lg font-semibold">
+                    <?= $post->user->name ?>
+                  </h4>
+                </div>
+                
+                <p class="mt-3 leading-tight">
+                  <?= $post->content ?>
+                </p>
+
+                <div class="flex items-center justify-between mt-3">
+                  <a
+                    href="post.php?post=<?= $post->id ?>"
+                    class="block w-fit px-4 py-1.5 bg-neutral-500/10 text-neutral-50/75 text-sm font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
+                  >
+                    <i class="fa-regular fa-comment mr-1"></i>
+                    Comentar
+                  </a>
+
+                  <span class="text-sm text-neutral-300">
+                    <?php
+                      $created_at = strtotime($post->created_at);
+                      echo date('d/m/Y', $created_at);
+                    ?>
+                  </span>
+                </div>
+              </article>
+            <?php endforeach; ?>
+            <!-- <article class="px-4 py-6 border-b border-slate-700 text-neutral-200 last:border-b-0">
               <div class="flex items-center gap-3">
                 <a
                   href="user.php?user="
@@ -194,7 +232,7 @@ if (!empty($_POST)) {
                 <i class="fa-regular fa-comment mr-1"></i>
                 Comentar
               </a>
-            </article>
+            </article> -->
           </section>
         </main>
       </div>

@@ -36,6 +36,21 @@ class MariaDbPostRepository implements IPostRepository {
     }
     return $posts;
   }
+
+  function findFromFollowedUsers($user_id) {
+    $connection = MariaDbConnection::getConnection();
+    $statement = $connection->prepare(
+      "SELECT U.id AS user_id, U.name AS name, P.id AS post_id, P.content AS content, P.created_at AS created_at FROM follow F LEFT JOIN user U ON U.id = F.follower_id LEFT JOIN post P ON P.user_id = F.follower_id WHERE F.followed_id = ? ORDER BY P.created_at DESC"
+    );
+    $statement->bind_param("i", $user_id);
+    $statement->execute();
+    $result = $statement->get_result();
+    $posts = [];
+    while ($row = $result->fetch_assoc()) {
+      array_push($posts, Post::fromArray($row));
+    }
+    return $posts;
+  }
 }
 
 ?>
