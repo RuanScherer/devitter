@@ -8,16 +8,14 @@ class MariaDbPostRepository implements IPostRepository {
   function create($post) {
     $connection = MariaDbConnection::getConnection();
     $statement = $connection->prepare(
-      "INSERT INTO Post (content, created_at, user_id, commented_post_id) VALUES (?, ?, ?, ?);"
+      "INSERT INTO Post (content, created_at, user_id) VALUES (?, ?, ?);"
     );
-    $commented_post_id = $post->commented_post != null ? $post->commented_post->id : null;
     $created_at = substr($post->created_at, 0, 10);
     $statement->bind_param(
-      "ssii",
+      "ssi",
       $post->content,
       $created_at,
-      $post->user->id,
-      $commented_post_id
+      $post->user->id
     );
     $statement->execute();
   }

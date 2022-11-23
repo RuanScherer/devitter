@@ -5,9 +5,12 @@ include_once __DIR__ . "/../use-cases/create-post/create-post-controller.php";
 include_once __DIR__ . "/../use-cases/get-followed-users-posts/get-followed-users-posts-controller.php";
 include_once __DIR__ . "/../entities/Post.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
+include_once __DIR__ . "/../use-cases/get_sugestions/get-sugestion-controller.php";
 
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
+$response_sugestion = GetSugestionController::handle($authenticated_user->id, $authenticated_user->dev_type);
+$sugestions = $response_sugestion->data;
 
 $post_creation_error_message = "";
 if (!empty($_POST)) {
@@ -94,28 +97,56 @@ $posts = $responsePosts->data;
       </header>
 
       <div class="grid grid-cols-12 gap-8 mt-8">
-        <aside class="hidden h-fit lg:block lg:col-span-4 xl:col-span-3 bg-gray-800/75 rounded-lg shadow">
-          <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
+        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 rounded-lg shadow">
+          <div class="bg-gray-800/75 rounded-lg">
+            <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
 
-          <div class="p-4">
-            <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
-              <?= $authenticated_user_name_abbreviation ?>
+            <div class="p-4">
+              <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
+                <?= $authenticated_user_name_abbreviation ?>
+              </div>
+
+              <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
+                <?= $authenticated_user->name ?>
+              </h2>
+              <h3 class="text-md text-center text-neutral-300 leading-none mb-8">
+                @<?= $authenticated_user->username ?>
+              </h3>
+
+              <a
+                href="profile.php"
+                class="block px-6 py-2 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
+              >
+                Meu perfil
+              </a>
             </div>
-
-            <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
-              <?= $authenticated_user->name ?>
-            </h2>
-            <h3 class="text-md text-center text-neutral-300 leading-none mb-8">
-              @<?= $authenticated_user->username ?>
-            </h3>
-
-            <a
-              href="profile.php"
-              class="block px-6 py-2 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
-            >
-              Meu perfil
-            </a>
           </div>
+
+          <?php if(count($sugestions) > 0): ?>
+            <div class="bg-gray-800/75 rounded-lg">
+              <h2 class="text-xl text-center text-neutral-100 font-semibold my-5">
+                Quem seguir
+              </h2>
+              <?php foreach($sugestions as $key=>$sugestion): ?>
+                <a href="user.php?user=<?= $sugestion->id ?>" class="flex flex-row w-full items-center p-4 mb-4 gap-2 hover:bg-gray-700/25 transition rounded-lg">
+                  <div class="flex flex-row">
+                    <div class="flex flex-col items-center justify-center w-10 h-10 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-lg text-neutral-800">
+                      <?= getNameTwoLetterAbbreviation($sugestion->name) ?>
+                    </div>
+                  </div> 
+
+                  <div class="flex flex-col items-start">
+                    <p class="text-lg text-center text-neutral-100 font-semibold">
+                      <?= $sugestion->name?>
+                    </p>
+                    <p class="text-md text-neutral-300 leading-none">
+                      @<?= $sugestion->username ?>
+                    </p>
+                  </div>
+              </a>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
         </aside>
 
         <main class="col-span-12 lg:col-span-8 xl:col-span-9">
