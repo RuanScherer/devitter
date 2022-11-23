@@ -37,7 +37,6 @@ $response = CheckIsFollowingUserController::handle($authenticated_user->id, intv
 $isFollowingUser = $response->data;
 
 if (!empty($_POST) && $_POST["TOGGLE_FOLLOW"] != null) {
-  echo "caiu";
   if ($isFollowingUser) {
     StopFollowingUserController::handle($authenticated_user->id, intval($_GET["user"]));
     $isFollowingUser = false;
