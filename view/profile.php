@@ -131,15 +131,7 @@ $user_posts = $response->data;
                   <?= $post->content ?>
                 </p>
 
-                <div class="flex items-center justify-between mt-3">
-                  <a
-                    href="#"
-                    class="block w-fit px-4 py-1.5 bg-neutral-500/10 text-neutral-50/75 text-sm font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
-                  >
-                    <i class="fa-regular fa-comment mr-1"></i>
-                    Comentar
-                  </a>
-
+                <div class="flex items-center justify-end mt-2">
                   <span class="text-sm text-neutral-300">
                     <?php
                       $created_at = strtotime($post->created_at);
