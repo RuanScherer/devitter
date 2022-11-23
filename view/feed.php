@@ -122,6 +122,14 @@ $posts = $responsePosts->data;
             </div>
           </div>
 
+          <?php if($authenticated_user->dev_type == null): ?>
+            <div class="p-4 bg-emerald-400/60 rounded-xl border-emerald-800 border-2">
+              <p class="text-white text-lg text-center font-bold ">Antes de tudo!</p>
+              <p class="text-slate-200 text-lg text-center leading-5">Adicione uma categoria em seu perfil para que possa achar pessoas que possuem o mesmo interesse que você</p>
+              <p class="text-white text-lg text-center hover:text-slate-300 hover:ease-in duration-150">👉 <a  class="hover:underline hover:underline duration-150" href="profile.php"> Acesse seu perfil </a> 👈</p>
+            </div>
+          <?php endif; ?>
+
           <?php if(count($sugestions) > 0): ?>
             <div class="bg-gray-800/75 rounded-lg">
               <h2 class="text-xl text-center text-neutral-100 font-semibold my-5">

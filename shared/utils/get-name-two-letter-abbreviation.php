@@ -7,7 +7,7 @@ function getNameTwoLetterAbbreviation($full_name = "") {
   if ($exploded_name_count > 1) {
     $abbreviation .= substr($exploded_name[$exploded_name_count - 1], 0, 1);
   }
-  return $abbreviation;
+  return strtoupper($abbreviation);
 }
 
 ?>
