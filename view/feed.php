@@ -97,7 +97,7 @@ $posts = $responsePosts->data;
       </header>
 
       <div class="grid grid-cols-12 gap-8 mt-8">
-        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3 rounded-lg shadow">
+        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3">
           <div class="bg-gray-800/75 rounded-lg">
             <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
 
@@ -126,17 +126,19 @@ $posts = $responsePosts->data;
             <div class="p-4 bg-emerald-400/60 rounded-xl border-emerald-800 border-2 my-5">
               <p class="text-white text-lg text-center font-bold ">Antes de tudo!</p>
               <p class="text-slate-200 text-lg text-center leading-5">Adicione uma categoria em seu perfil para que possa achar pessoas que possuem o mesmo interesse que você</p>
-              <p class="text-white text-lg text-center hover:text-slate-300 hover:ease-in duration-150">👉 <a  class="hover:underline hover:underline duration-150" href="profile.php"> Acesse seu perfil </a> 👈</p>
+              <p class="text-white text-lg text-center mt-2">
+                👉 <a class="font-medium hover:text-slate-300 hover:ease-in transition" href="profile.php">Acesse seu perfil</a> 👈
+              </p>
             </div>
           <?php endif; ?>
 
           <?php if(count($sugestions) > 0): ?>
-            <div class="bg-gray-800/75 rounded-lg">
-              <h2 class="text-xl text-center text-neutral-100 font-semibold my-5">
-                Quem seguir
+            <div class="bg-gray-800/75 rounded-lg flex flex-col items-stretch gap-4 mt-4 py-4 px-4">
+              <h2 class="text-xl text-center text-neutral-100 font-semibold">
+                Sugestões para seguir
               </h2>
               <?php foreach($sugestions as $key=>$sugestion): ?>
-                <a href="user.php?user=<?= $sugestion->id ?>" class="flex flex-row w-full items-center p-4 mb-4 gap-2 hover:bg-gray-700/25 transition rounded-lg">
+                <a href="user.php?user=<?= $sugestion->id ?>" class="flex flex-row w-full items-center p-4 gap-2 hover:bg-gray-700/25 transition rounded-lg">
                   <div class="flex flex-row">
                     <div class="flex flex-col items-center justify-center w-10 h-10 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-lg text-neutral-800">
                       <?= getNameTwoLetterAbbreviation($sugestion->name) ?>
@@ -144,10 +146,10 @@ $posts = $responsePosts->data;
                   </div> 
 
                   <div class="flex flex-col items-start">
-                    <p class="text-lg text-center text-neutral-100 font-semibold">
+                    <p class="text-lg text-center text-neutral-100 font-semibold leading-none">
                       <?= $sugestion->name?>
                     </p>
-                    <p class="text-md text-neutral-300 leading-none">
+                    <p class="text-md text-neutral-300">
                       @<?= $sugestion->username ?>
                     </p>
                   </div>
