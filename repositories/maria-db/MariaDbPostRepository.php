@@ -46,6 +46,7 @@ class MariaDbPostRepository implements IPostRepository {
       ON P.user_id = F.followed_id
       WHERE F.follower_id = ?
       OR P.user_id = ?
+      GROUP BY P.id
       ORDER BY P.created_at, P.id DESC"
     );
     $statement->bind_param("ii", $user_id, $user_id);
