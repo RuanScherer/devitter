@@ -1,14 +1,21 @@
 <?php
 
 include_once __DIR__ . "/../shared/middlewares/Authenticated.php";
-include_once __DIR__ . "/../use-cases/get-user-posts/get-user-posts-controller.php";
+include_once __DIR__ . "/../use-cases/update-user-profile/update-user-profile-controller.php";
+include_once __DIR__ . "/../entities/User.php";
 include_once __DIR__ . "/../shared/utils/get-name-two-letter-abbreviation.php";
 
 $authenticated_user = unserialize($_SESSION['user']);
 $authenticated_user_name_abbreviation = getNameTwoLetterAbbreviation($authenticated_user->name);
 
-$response = GetUserPostsController::handle($authenticated_user->id);
-$user_posts = $response->data;
+if (!empty($_POST)) {
+  $user = $authenticated_user;
+  $user->biography = $_POST["biography"];
+  $user->dev_type = $_POST["dev_type"];
+
+  UpdateUserProfileController::handle($user);
+  header("Location: profile.php");
+}
 
 ?>
 
@@ -82,7 +89,7 @@ $user_posts = $response->data;
       <main class="h-fit max-w-4xl mx-auto mt-8 bg-gray-800/75 rounded-lg shadow">
         <div class="bg-emerald-500 h-24 rounded-t-lg"></div>
 
-        <div class="p-4">
+        <form class="p-4 flex flex-col items-stretch" method="POST">
           <div class="flex flex-col items-center justify-center w-20 h-20 -mt-14 mx-auto rounded-full border-2 border-neutral-300 bg-neutral-300 text-center font-bold text-3xl text-neutral-800">
             <?= $authenticated_user_name_abbreviation ?>
           </div>
@@ -90,21 +97,45 @@ $user_posts = $response->data;
           <h2 class="text-2xl text-center text-neutral-100 font-semibold mt-2">
             <?= $authenticated_user->name ?>
           </h2>
-          <h3 class="text-md text-center text-neutral-300 leading-none">
+          <h3 class="text-md text-center text-neutral-300 leading-none mb-8">
             @<?= $authenticated_user->username ?>
           </h3>
 
-          <?php
-            echo "<p class='text-neutral-200 text-center mt-4'>" . $authenticated_user->biography .  "</p>";
-          ?>
-
-          <a
-            href="edit-profile.php"
-            class="block px-6 py-2 mt-8 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
+          <label for="biography" class="text-neutral-50 ml-2 mb-2 font-medium">
+            Biografia
+          </label>
+          <textarea
+            name="biography"
+            id="biography"
+            placeholder="Diga um pouco sobre você"
+            rows="3"
+            class="rounded-lg p-4 block bg-gray-700/30 text-neutral-100 hover:bg-gray-700/50 focus:bg-gray-700/50 focus:outline-none caret-emerald-500 resize-none transition"
+            maxlength="255"
+            required
+          ><?= $authenticated_user->biography ?></textarea>
+          
+          <label for="dev_type" class="text-neutral-50 ml-2 mb-2 mt-4 font-medium">
+            Categoria
+          </label>
+          <select
+            id="dev_type"
+            name="dev_type"
+            class="rounded-lg p-4 block bg-gray-700/30 text-neutral-100 hover:bg-gray-700/50 focus:bg-gray-700/50 focus:outline-none caret-emerald-500 resize-none transition"
           >
-            Editar perfil
-          </a>
-        </div>
+            <option value="Frontend" <?= $authenticated_user->dev_type == "Frontend" ? "selected" : "" ?>>Frontend</option>
+            <option value="Backend" <?= $authenticated_user->dev_type == "Backend" ? "selected" : "" ?>>Backend</option>
+            <option value="DevOps" <?= $authenticated_user->dev_type == "DevOps" ? "selected" : "" ?>>DevOps</option>
+            <option value="Mobile" <?= $authenticated_user->dev_type == "Mobile" ? "selected" : "" ?>>Mobile</option>
+            <option value="FullStack" <?= $authenticated_user->dev_type == "FullStack" ? "selected" : "" ?>>FullStack</option>
+          </select>
+
+          <button
+            type="submit"
+            class="block px-6 py-2 mt-8 bg-emerald-500 text-neutral-900 text-center text-md font-medium rounded-lg hover:bg-emerald-500/80 transition"
+          >
+            Salvar alterações
+          </button>
+        </form>
       </main>
     </div>
 

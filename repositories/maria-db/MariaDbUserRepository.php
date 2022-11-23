@@ -63,6 +63,20 @@ class MariaDbUserRepository implements IUserRepository {
     $data = $result->fetch_assoc();
     return User::fromArray($data);
   }
+
+  function updateBiographyAndDevType($user) {
+    $connection = MariaDbConnection::getConnection();
+    $statement = $connection->prepare(
+      "UPDATE User SET biography = ?, dev_type = ? WHERE id = ?;"
+    );
+    $statement->bind_param(
+      "ssi",
+      $user->biography,
+      $user->dev_type,
+      $user->id
+    );
+    $statement->execute();
+  }
 }
 
 ?>

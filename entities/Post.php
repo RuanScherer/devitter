@@ -29,10 +29,10 @@ class Post {
         "username"=>null,
         "email"=>null,
         "password"=>null,
-        "biography"=>null
+        "biography"=>null,
+        "dev_type"=>null
       )
     );
-    // $post->commented_post = Post::fromArray($array);
     
     return $post;
   }

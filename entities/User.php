@@ -7,6 +7,7 @@ class User {
   private $username;
   private $biography;
   private $password;
+  private $dev_type;
 
   static function fromArray($array) {
     if (!isset($array)) {
@@ -20,6 +21,7 @@ class User {
     $user->username = $array["username"];
     $user->biography = $array["biography"];
     $user->password = $array["password"];
+    $user->dev_type = $array["dev_type"];
     return $user;
   }
 

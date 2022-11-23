@@ -95,13 +95,17 @@ $user_posts = $response->data;
               @<?= $authenticated_user->username ?>
             </h3>
 
-            <?php
-              echo "<p class='text-neutral-200 text-center mt-4'>" . $authenticated_user->biography .  "</p>";
-            ?>
+            <?= "<p class='text-neutral-200 text-center mt-4'>" . $authenticated_user->biography . "</p>" ?>
+
+            <?php if($authenticated_user->dev_type != null): ?>
+              <span class="w-fit mx-auto block mt-2 text-sm font-medium text-neutral-900 rounded-lg bg-emerald-500 px-3 py-1">
+                <?= $authenticated_user->dev_type ?>
+              </span>
+            <?php endif; ?>
 
             <a
               href="edit-profile.php"
-              class="block px-6 py-2 mt-8 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
+              class="block px-6 py-2 mt-4 bg-neutral-500/10 text-neutral-50/75 text-center text-md font-medium rounded-lg hover:bg-emerald-300/10 hover:text-neutral-100 transition"
             >
               Editar perfil
             </a>
