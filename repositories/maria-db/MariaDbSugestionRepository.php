@@ -17,7 +17,7 @@ class MariaDbSugestionRepository implements ISugestionRepository {
         LIMIT 3;"
     );
     $statement->bind_param(
-      "is",
+      "isi",
       $user_id,
       $user_type,
       $user_id
