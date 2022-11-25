@@ -43,7 +43,7 @@ $posts = $responsePosts->data;
     <link rel="stylesheet" href="styles/global.css" />
 
     <title>Devitter | Feed</title>
-    <link rel="icon" type="imagem/svg" href="../assets/images/bird.svg" />
+    <link rel="shortcut icon" href="../assets/images/bird.svg" type="image/svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="scripts/tailwind-config.js"></script>
